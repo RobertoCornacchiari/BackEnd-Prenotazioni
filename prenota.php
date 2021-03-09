@@ -27,3 +27,6 @@ $stmt = $pdo->prepare($sql);
 
 //Inviamo i dati concreti che verranno messi al posto dei segnaposto(:...)
 $stmt->execute(['codice_fiscale'=>$codice_fiscale, 'giorno'=>$giorno]);
+
+header('Location:lista_prenotazioni.php');
+exit(0);

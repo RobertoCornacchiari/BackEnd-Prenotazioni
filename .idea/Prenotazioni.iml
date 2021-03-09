@@ -5,5 +5,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="SitoBanca" />
+    <orderEntry type="library" name="mini.css" level="application" />
   </component>
 </module>

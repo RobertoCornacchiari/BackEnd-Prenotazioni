@@ -16,9 +16,16 @@ $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $pdo = new PDO($dsn, $user, $pass);
 
 //Query
-$sql = "SELECT * FROM prenotazioni";
+$sql = "SELECT codice_fiscale, giorno FROM prenotazioni";
 
 $stmt = $pdo->query($sql);
-echo "<pre>";
-var_dump($stmt->fetchAll());
-echo "</pre>";
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $stringa = $row['codice_fiscale'] . ", " . $row['giorno'];
+    echo "<li>" . $stringa . "</li>";
+}
+
+?>
+
+
+

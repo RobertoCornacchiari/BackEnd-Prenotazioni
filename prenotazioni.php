@@ -1,9 +1,22 @@
 <?php
 
 include_once "config.php";
+require 'vendor/autoload.php';
 
+use League\Plates\Engine;
+
+//Viene creato l'oggetto per la gestione dei template
+$templates = new Engine('./view', 'tpl');
 
 $stmt = $pdo->query("SELECT codice_fiscale, giorno FROM prenotazioni");
+
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+echo $templates->render('lista_prenotazioni', ['result' => $result]);
+
+//Rendo un template che mi visualizza la tabella
+
+/*
 $tabella = '';
 echo "<ol>\n";
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -19,6 +32,8 @@ echo "<tbody>";
 echo $tabella;
 echo "</tbody>";
 echo "</table>\n";
+
+*/
 ?>
 
 

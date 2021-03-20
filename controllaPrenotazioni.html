@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prenotazioni</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+</head>
+<body>
+<h1>Portale prenotazioni</h1>
+<h2>Ricerca la tua prenotazione</h2>
+    <form action="cerca_prenotazione.php" method="post">
+        <fieldset>
+            <legend>Inserisci la prenotazione</legend>
+            <label for="codiceFiscale">Codice Fiscale</label>
+            <input type="text" id="codiceFiscale" placeholder="Codice Fiscale" name="codiceFiscale"/>
+            <label for="code">Codice prenotazione</label>
+            <input type="text" id="code" placeholder="Codice" name="code"/>
+            <input type="submit" value="Cerca la tua prenotazione">
+        </fieldset>
+    </form>
+    <div id="ricercaGiornaliera">
+        <a href="Lista_prenotazioni_giornaliere.php">
+            <button id="bottoneGiornaliero" onClick="">
+                Visualizza le prenotazioni giornaliere
+            </button>
+        </a>
+    </div>
+</body>
+</html>

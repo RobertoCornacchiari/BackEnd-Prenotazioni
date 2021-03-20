@@ -5,14 +5,22 @@ include_once "config.php";
 //Variabili valorizzate tramite POST
 $codice_fiscale = $_POST['codice'];
 $giorno = $_POST['giorno'];
+$sql_numero= "SELECT COUNT(*) AS n_prenotazioni FROM prenotazioni WHERE DAY(prenotazioni.giorno) = DAY('$giorno')";
 
-//Query di inserimento preparata
+$n_prenotazioni = $pdo->query($sql_numero)->fetchAll()[0]["n_prenotazioni"];
+
+if ($n_prenotazioni >= 5){
+    echo "Impossibile prenotare in questo giorno per numero di prenotazioni massimo raggiunto";
+    exit(0);
+}
 
 function generateRandomString($length = 10) {
     return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
 }
 
 $codice = generateRandomString();
+
+//Query di inserimento preparata
 $sql = "INSERT INTO prenotazioni VALUES(null, :codice_fiscale, :giorno, :codice)";
 
 //Inviamo la query al database che la tiene in pancia

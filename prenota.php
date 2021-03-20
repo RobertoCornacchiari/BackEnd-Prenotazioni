@@ -14,11 +14,19 @@ if ($n_prenotazioni >= 5){
     exit(0);
 }
 
+require("./phpqrcode/qrlib.php");
+$errorCorrectionLevel = 'L';
+$matrixPointSize = 10;
+
 function generateRandomString($length = 10) {
     return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
 }
 
 $codice = generateRandomString();
+
+$filename = 'qrcode'.md5($codice.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
+
+QRcode::png($codice, $filename, $errorCorrectionLevel. $matrixPointSize, 2);
 
 //Query di inserimento preparata
 $sql = "INSERT INTO prenotazioni VALUES(null, :codice_fiscale, :giorno, :codice)";
@@ -33,3 +41,5 @@ $stmt->execute(['codice_fiscale'=>$codice_fiscale, 'giorno'=>$giorno, 'codice'=>
 //exit(0);
 
 echo "<h2>Il tuo codice prenotazione è:$codice</h2>";
+
+echo "<img src='$filename' width='300px' height='300px'/>";

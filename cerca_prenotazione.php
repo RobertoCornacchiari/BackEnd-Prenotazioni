@@ -1,6 +1,6 @@
 <?php
 
-include_once "config.php";
+include_once 'config.php';
 
 //Variabili valorizzate tramite POST
 $codice_fiscale = $_POST['codiceFiscale'];

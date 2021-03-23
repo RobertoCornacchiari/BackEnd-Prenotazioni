@@ -14,7 +14,7 @@
     <thead><tr><td>Data</td><td>Prenotazioni</td></tr></thead>
     <tbody>
     <?php foreach($result as $row) :?>
-    <tr><td><strong><?php echo $row['giorno']?></strong></td><td>
+    <tr><td><strong><?php echo $row['gen_date']?></strong></td><td>
             <?php echo $row['quanti']?></td></tr>
     <?php endforeach ?>
     </tbody>

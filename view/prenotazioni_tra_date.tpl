@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Prenotazioni</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
-</head>
-<body>
-<h1>Portale prenotazioni</h1>
-<h2>Prenotazioni tra 2 date</h2>
+<?php $this->layout('main', ['argomento' => 'Prenotazioni tra 2 date']) ?>
 
 <table>
     <thead><tr><td>Data</td><td>Prenotazioni</td></tr></thead>
@@ -19,5 +9,3 @@
     <?php endforeach ?>
     </tbody>
 </table>
-</body>
-</html>

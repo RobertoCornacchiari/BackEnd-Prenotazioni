@@ -13,7 +13,9 @@
             <label for="codice">Codice Fiscale</label>
             <input type="text" id="codice" placeholder="Codice Fiscale" name="codice"/>
             <label for="giorno">Giorno</label>
-            <input type="date" id="giorno" placeholder="Giorno" name="giorno"/>
+            <?php
+                include('dateDisponibili.php');
+            ?>
             <input type="submit" value="Invia la tua richiesta">
         </fieldset>
     </form>
@@ -28,5 +30,6 @@
             <input type="submit" value="Cerca la tua prenotazione">
         </fieldset>
     </form>
+
 </body>
 </html>

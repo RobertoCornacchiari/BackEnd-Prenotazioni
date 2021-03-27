@@ -4,7 +4,7 @@ include_once "config.php";
 
 //Variabili valorizzate tramite POST
 $codice_fiscale = $_POST['codice'];
-$giorno = $_POST['giorno'];
+$giorno = $_POST['dateDisponibili'];
 $sql_numero= "SELECT COUNT(*) AS n_prenotazioni FROM prenotazioni WHERE DAY(prenotazioni.giorno) = DAY('$giorno')";
 
 $n_prenotazioni = $pdo->query($sql_numero)->fetchAll()[0]["n_prenotazioni"];

@@ -20,6 +20,7 @@ FROM (select * from
 where gen_date BETWEEN '$giornoIniziale' AND '$giornoFinale') as data
 LEFT JOIN (SELECT prenotazioni.giorno, COUNT(*) as quanti FROM prenotazioni
 WHERE prenotazioni.giorno BETWEEN '$giornoIniziale' AND '$giornoFinale'
+AND prenotazioni.annullata = 0
 GROUP BY prenotazioni.giorno
 ORDER BY prenotazioni.giorno) as prenotazioni
 ON data.gen_Date = prenotazioni.giorno;

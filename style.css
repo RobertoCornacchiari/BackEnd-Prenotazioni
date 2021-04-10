@@ -6,3 +6,15 @@ td, th {
     border: 1px solid black;
     padding: 5px;
 }
+body {
+    text-align: center;
+    font-size: 30px;
+}
+
+.form {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+}
+

@@ -6,11 +6,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Elenco prenotazioni: </h1>
-    <h3>
-        <?php
+<?php
+include('config.php');
+if (isset($_SESSION['username'])) {
+    echo "<h1>Elenco prenotazioni: </h1>";
         include('prenotazioni.php');
-        ?>
-    </h3>
+}
+else {
+    echo "<h1>Utente non autorizzato</h1>";
+}
+?>
+
 </body>
 </html>

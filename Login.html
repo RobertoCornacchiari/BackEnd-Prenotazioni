@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Login</h1>
+<div class="form">
+  <form action="esito_login.php" method="post">
+    <fieldset>
+      <legend>Inserisci le credenziali</legend>
+      <div class="element">
+        <label for="nomeUtente">Nome Utente</label><br/>
+        <input type="text" id="nomeUtente" placeholder="Nome Utente" name="nomeUtente"/>
+      </div>
+      <br/>
+      <div class="element">
+        <label for="password">Password</label><br/>
+        <input type="password" id="password" placeholder="Password" name="password"/>
+      </div>
+      <input type="submit" value="Login">
+    </fieldset>
+  </form>
+</div>
+</body>
+</html>

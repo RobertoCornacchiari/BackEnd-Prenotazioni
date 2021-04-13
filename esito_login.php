@@ -20,6 +20,7 @@ else {
     $pass_hash = $riga['password'];
     if (password_verify($password, $pass_hash)) {
         //La password è corretta
+        $_SESSION['username'] = $nomeUtente;
         echo $templates->render('utente_autenticato', ['username' => $nomeUtente]);
     } else {
         //La password è sbagliata

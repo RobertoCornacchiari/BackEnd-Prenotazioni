@@ -18,3 +18,5 @@ $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
 //Oggetto che rappresenta la connessione al database
 $pdo = new PDO($dsn, $user, $pass);
+
+session_start();

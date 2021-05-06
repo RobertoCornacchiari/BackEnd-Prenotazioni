@@ -8,12 +8,17 @@ use League\Plates\Engine;
 //Viene creato l'oggetto per la gestione dei template
 $templates = new Engine('./view', 'tpl');
 
-$stmt = $pdo->query("SELECT codice_fiscale, giorno FROM prenotazioni");
+$stmt = $pdo->query("SELECT codice_fiscale, giorno FROM prenotazione");
 
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo $templates->render('lista_prenotazioni', ['result' => $result]);
+//echo $templates->render('lista_prenotazioni', ['result' => $result]);
 
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true");
+
+echo json_encode($result);
 //Rendo un template che mi visualizza la tabella
 
 /*

@@ -10,7 +10,6 @@ $rawdata = json_decode($rawdata, true);
 
 
 $codice_fiscale = $rawdata['codice'];
-//$giorno = new DateTime($rawdata['giorno']);
 $giorno = $rawdata['giorno'];
 $presidio = $rawdata['presidio'];
 
@@ -20,7 +19,6 @@ function generateRandomString($length = 10) {
 }
 
 $codice = generateRandomString();
-echo json_encode($giorno);
 /*
 $filename = 'qrcode'.md5($codice.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
 
@@ -37,20 +35,21 @@ $qrcode = new QRCode($options);
 $qrcode->render($data);
 */
 
-/*
-//Query di inserimento preparata
-$sql = "INSERT INTO prenotazione VALUES(null, :giorno, :codice_fiscale,  :codice, :annullata, :presidio)";
-
+if ($codice_fiscale != "" && $giorno != null && $presidio != null) {
+    //Query di inserimento preparata
+    $sql = "INSERT INTO prenotazione VALUES(null, :giorno, :codice_fiscale,  :codice, :annullata, :presidio)";
+    $numero = $pdo->query("SELECT presidio.id FROM presidio WHERE presidio.value='$presidio'");
+    $numero = $numero->fetchAll(PDO::FETCH_ASSOC);
 //Inviamo la query al database che la tiene in pancia
-$stmt = $pdo->prepare($sql);
-
+    $stmt = $pdo->prepare($sql);
 //Inviamo i dati concreti che verranno messi al posto dei segnaposto(:...)
-$stmt->execute(['giorno'=>$giorno, 'codice_fiscale'=>$codice_fiscale, 'codice'=>$codice, 'annullata'=>0, 'presidio'=>1]);
-
+    $stmt->execute(['giorno'=>$giorno, 'codice_fiscale'=>$codice_fiscale, 'codice'=>$codice, 'annullata'=>0, 'presidio'=>$numero[0]['id']]);
+    echo json_encode($codice);
 //header('Location:Lista_prenotazioni.php');
 //exit(0);
 
-echo "<h2>Il tuo codice prenotazione è:$codice</h2>";
-
 //echo "<img src='$filename' width='300px' height='300px'/>";
-*/
+}
+else {
+    echo json_encode("Errore");
+}

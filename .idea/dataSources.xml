@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Tamponi" uuid="45717cc1-1553-4c20-b187-39f57721b1ef">
+    <data-source source="LOCAL" name="prenotazioni@localhost" uuid="052fb159-8139-4b6c-b8c5-57d5785a242d">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>

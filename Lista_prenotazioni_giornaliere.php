@@ -3,7 +3,7 @@
 include_once "config.php";
 require 'vendor/autoload.php';
 
-use League\Plates\Engine;
+use \League\Plates\Engine;
 
 //Viene creato l'oggetto per la gestione dei template
 $templates = new Engine('./view', 'tpl');

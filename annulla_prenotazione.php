@@ -1,13 +1,16 @@
 <?php
 
-include_once 'config.php';
+include_once "config.php";
 
 //Variabili valorizzate tramite POST
-$codice_fiscale = $_POST['codiceFiscale'];
-$codice = $_POST['code'];
+
+$rawdata = file_get_contents("php://input");
+// Let's say we got JSON
+$rawdata = json_decode($rawdata, true);
+
+$codice = $rawdata['codice'];
 
 //Inviamo la query al database che la tiene in pancia
-$sql = "UPDATE prenotazioni SET prenotazioni.annullata = 1 WHERE prenotazioni.codice_fiscale = :codice_fiscale AND prenotazioni.codice = :codice";
+$sql = "UPDATE prenotazione SET prenotazione.annullata = 1 WHERE prenotazione.codice = :codice";
 $stmt = $pdo->prepare($sql);
-$stmt->execute(['codice_fiscale'=>$codice_fiscale, 'codice'=>$codice]);
-echo "<h2>La tua prenotazione è stata annullata</h2>";
+$stmt->execute([ 'codice'=>$codice]);

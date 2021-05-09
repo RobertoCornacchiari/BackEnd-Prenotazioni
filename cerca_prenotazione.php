@@ -13,7 +13,7 @@ $codice_fiscale = $rawdata['codiceFiscale'];
 $codice = $rawdata['codice'];
 
 //Inviamo la query al database che la tiene in pancia
-$stmt = $pdo->query("SELECT giorno, annullata, codice FROM prenotazione WHERE prenotazione.codice_fiscale = '$codice_fiscale'
+$stmt = $pdo->query("SELECT prenotazione.giorno, prenotazione.annullata, prenotazione.codice, presidio.nome FROM prenotazione, presidio WHERE prenotazione.id_presidio = presidio.id AND prenotazione.codice_fiscale = '$codice_fiscale'
 AND prenotazione.codice = '$codice'");
 
 //Inviamo i dati concreti che verranno messi al posto dei segnaposto(:...)

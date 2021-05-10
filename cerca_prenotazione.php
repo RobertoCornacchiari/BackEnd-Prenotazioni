@@ -28,16 +28,7 @@ if ($valori == null){
 $valori = $valori[0];
 
 if ($valori['annullata'] == 0){
-    $risultato = $valori['giorno'];
     echo json_encode($valori);
-    /*
-    echo "<h2>Sei prenotato per il giorno: $risultato</h2>";
-    echo "<form action='annulla_prenotazione.php' method='post'>
-         <input type='submit' value='Annulla la prenotazione'>
-         <input type='hidden' name='code' value='$codice'/>
-         <input type='hidden' name='codiceFiscale' value='$codice_fiscale'/>
-    </form>";
-    */
 }
 else {
     echo json_encode("Annullata");

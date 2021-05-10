@@ -19,21 +19,6 @@ function generateRandomString($length = 10) {
 }
 
 $codice = generateRandomString();
-/*
-$filename = 'qrcode'.md5($codice.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
-
-QRcode::png($codice, $filename, $errorCorrectionLevel. $matrixPointSize, 2);
-
-$data = $codice;
-$options = new QROptions([
-    'version'    => 5,
-    'outputType' => QRCode::OUTPUT_MARKUP_SVG,
-    'eccLevel'   => QRCode::ECC_L,
-]);
-
-$qrcode = new QRCode($options);
-$qrcode->render($data);
-*/
 
 if ($codice_fiscale != "" && $giorno != null && $presidio != null) {
     //Query di inserimento preparata
@@ -44,6 +29,15 @@ if ($codice_fiscale != "" && $giorno != null && $presidio != null) {
     $stmt = $pdo->prepare($sql);
 //Inviamo i dati concreti che verranno messi al posto dei segnaposto(:...)
     $stmt->execute(['giorno'=>$giorno, 'codice_fiscale'=>$codice_fiscale, 'codice'=>$codice, 'annullata'=>0, 'presidio'=>$numero[0]['id']]);
+
+    $esito = "INSERT INTO tampone VALUES(null, :esito, :id_sanitario, :id_prenotazione)";
+    $prepara = $pdo->prepare($esito);
+    $id = $pdo->query("SELECT prenotazione.id FROM prenotazione WHERE prenotazione.codice='$codice' 
+                                           AND prenotazione.codice_fiscale='$codice_fiscale'");
+    $id = $id->fetchAll(PDO::FETCH_ASSOC);
+    $id = $id[0]['id'];
+
+    $prepara->execute(['esito'=>"pending", 'id_sanitario'=>null, 'id_prenotazione'=>$id]);
     echo json_encode($codice);
 //header('Location:Lista_prenotazioni.php');
 //exit(0);

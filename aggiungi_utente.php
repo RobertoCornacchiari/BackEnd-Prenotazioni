@@ -3,19 +3,19 @@
 include_once 'config.php';
 
 //Variabili valorizzate tramite POST
-$nomeUtente = $_POST['nomeUtente'];
-$password = $_POST['password'];
-$ripetipassword = $_POST['ripetipassword'];
+$nomeUtente = 'Roberto';
+$password = "Roberto";
+$ripetipassword = 'Roberto';
 
-if ($password == $ripetipassword){
-    $quanti = $pdo->query("SELECT count(*) as quanti FROM utenti WHERE utenti.username = '$nomeUtente'");
+if ($password == $ripetipassword) {
+    $quanti = $pdo->query("SELECT count(*) as quanti FROM account WHERE account.nomeUtente = '$nomeUtente'");
     $quanti = $quanti->fetchAll(PDO::FETCH_ASSOC);
     if ($quanti[0]['quanti'] == "0"){
-        $sql = "INSERT INTO utenti VALUES(null, :nomeUtente, :password)";
-
+        $sql = "INSERT INTO account VALUES(null, :nomeUtente, :password, :admin)";
         $stmt = $pdo->prepare($sql);
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->execute(['nomeUtente'=>$nomeUtente, 'password'=>$hash]);
+        echo $hash;
+        $stmt->execute(['nomeUtente'=>$nomeUtente, 'password'=>$hash, 'admin'=>0]);
         echo "<h2>Registrazione avvenuta con successo</h2>";
     }
     else {

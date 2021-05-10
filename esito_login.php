@@ -1,29 +1,32 @@
 <?php
 
-include_once 'config.php';
-require 'vendor/autoload.php';
+include_once "config.php";
 
-use League\Plates\Engine;
-
-//Viene creato l'oggetto per la gestione dei template
-$templates = new Engine('./view', 'tpl');
 //Variabili valorizzate tramite POST
-$nomeUtente = $_POST['nomeUtente'];
-$password = $_POST['password'];
 
-$riga = $pdo->query("SELECT count(*) as quanti, utenti.username, utenti.password FROM utenti WHERE utenti.username = '$nomeUtente'");
+$rawdata = file_get_contents("php://input");
+// Let's say we got JSON
+$rawdata = json_decode($rawdata, true);
+
+$nomeUtente = $rawdata['nomeUtente'];
+$password = $rawdata['password'];
+echo $password;
+
+$riga = $pdo->query("SELECT count(*) as quanti, account.nomeUtente, account.password, account.admin FROM account WHERE account.nomeUtente = '$nomeUtente'");
 $riga = $riga->fetch(PDO::FETCH_ASSOC);
 if ($riga['quanti'] == "0"){
-    echo $templates->render('login_fallito', ['username' => $nomeUtente]);
+    echo json_encode("Errore 1 ");
 }
 else {
     $pass_hash = $riga['password'];
+    echo json_encode($pass_hash);
     if (password_verify($password, $pass_hash)) {
         //La password è corretta
-        $_SESSION['username'] = $nomeUtente;
-        echo $templates->render('utente_autenticato', ['username' => $nomeUtente]);
+        $autorizzazione['nomeUtente'] = $nomeUtente;
+        $autorizzazione['admin'] = $riga['admin'];
+        echo json_encode($autorizzazione);
     } else {
         //La password è sbagliata
-        echo $templates->render('login_fallito', ['username' => $nomeUtente]);
+        echo json_encode("Errore 2");
     }
 }

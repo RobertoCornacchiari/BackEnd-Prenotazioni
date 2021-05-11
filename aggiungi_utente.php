@@ -11,11 +11,11 @@ if ($password == $ripetipassword) {
     $quanti = $pdo->query("SELECT count(*) as quanti FROM account WHERE account.nomeUtente = '$nomeUtente'");
     $quanti = $quanti->fetchAll(PDO::FETCH_ASSOC);
     if ($quanti[0]['quanti'] == "0"){
-        $sql = "INSERT INTO account VALUES(null, :nomeUtente, :password, :admin)";
+        $sql = "INSERT INTO account VALUES(null, :nomeUtente, :password, :admin, :id_admin)";
         $stmt = $pdo->prepare($sql);
         $hash = password_hash($password, PASSWORD_DEFAULT);
         echo $hash;
-        $stmt->execute(['nomeUtente'=>$nomeUtente, 'password'=>$hash, 'admin'=>0]);
+        $stmt->execute(['nomeUtente'=>$nomeUtente, 'password'=>$hash, 'admin'=>0, 'id_admin'=>-1]);
         echo "<h2>Registrazione avvenuta con successo</h2>";
     }
     else {

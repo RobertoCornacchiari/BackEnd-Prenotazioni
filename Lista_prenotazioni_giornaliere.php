@@ -1,17 +1,15 @@
 <?php
 
 include_once "config.php";
-require 'vendor/autoload.php';
 
-use \League\Plates\Engine;
-
-//Viene creato l'oggetto per la gestione dei template
-$templates = new Engine('./view', 'tpl');
-
-$stmt = $pdo->query("SELECT codice_fiscale, giorno FROM prenotazioni WHERE DAY(giorno) = DAY(now())");
+$stmt = $pdo->query("SELECT codice_fiscale, codice, presidio.nome FROM prenotazione, presidio WHERE prenotazione.id_presidio=presidio.id AND DAY(giorno) = DAY(now()) ORDER BY presidio.nome");
 
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo $templates->render('lista_prenotazioni_giornaliere', ['result' => $result]);
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true");
+
+echo json_encode($result);
 
 ?>

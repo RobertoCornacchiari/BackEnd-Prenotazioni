@@ -19,13 +19,14 @@ if ($password == $ripetipassword) {
     $quanti = $pdo->query("SELECT count(*) as quanti FROM account WHERE account.nomeUtente = '$nomeUtente'");
     $quanti = $quanti->fetchAll(PDO::FETCH_ASSOC);
     if ($quanti[0]['quanti'] == "0"){
-        $sql = "INSERT INTO account VALUES(null, :nomeUtente, :password, :admin, :id_admin)";
+        $sql = "INSERT INTO account VALUES(null, :nomeUtente, :password, :admin, :id_admin, :cancellato)";
         $stmt = $pdo->prepare($sql);
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $id = $pdo->query("SELECT account.id FROM account WHERE account.nomeUtente='$nomeUtente'");
+        $id = $pdo->query("SELECT account.id FROM account WHERE account.nomeUtente='$admin'");
         $id = $id->fetch();
         $id = $id['id'];
-        $stmt->execute(['nomeUtente'=>$nomeUtente, 'password'=>$hash, 'admin'=>0, 'id_admin'=>$id]);
+        $stmt->execute(['nomeUtente'=>$nomeUtente, 'password'=>$hash, 'admin'=>0, 'id_admin'=>$id, 'cancellato'=>0]);
+        echo json_encode("Inserito");
     }
     else {
         echo json_encode("Utilizzato");

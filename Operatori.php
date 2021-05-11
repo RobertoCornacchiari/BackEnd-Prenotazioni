@@ -1,7 +1,7 @@
 <?php
 
 include_once "config.php";
-$stmt = $pdo->query("SELECT nome FROM presidio WHERE presidio.dismesso=0");
+$stmt = $pdo->query("SELECT nomeUtente FROM account WHERE account.admin=0 AND account.cancellato=0");
 
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

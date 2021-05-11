@@ -1,11 +1,19 @@
 <?php
 
-include_once 'config.php';
+include_once "config.php";
 
 //Variabili valorizzate tramite POST
-$nomeUtente = 'Roberto';
-$password = "Roberto";
-$ripetipassword = 'Roberto';
+
+$rawdata = file_get_contents("php://input");
+// Let's say we got JSON
+$rawdata = json_decode($rawdata, true);
+
+$nomeUtente = $rawdata['nomeUtente'];
+$password = $rawdata['password'];
+$ripetipassword = $rawdata['ripetiPassword'];
+$admin = $rawdata['admin'];
+
+
 
 if ($password == $ripetipassword) {
     $quanti = $pdo->query("SELECT count(*) as quanti FROM account WHERE account.nomeUtente = '$nomeUtente'");
@@ -14,15 +22,16 @@ if ($password == $ripetipassword) {
         $sql = "INSERT INTO account VALUES(null, :nomeUtente, :password, :admin, :id_admin)";
         $stmt = $pdo->prepare($sql);
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        echo $hash;
-        $stmt->execute(['nomeUtente'=>$nomeUtente, 'password'=>$hash, 'admin'=>0, 'id_admin'=>-1]);
-        echo "<h2>Registrazione avvenuta con successo</h2>";
+        $id = $pdo->query("SELECT account.id FROM account WHERE account.nomeUtente='$nomeUtente'");
+        $id = $id->fetch();
+        $id = $id['id'];
+        $stmt->execute(['nomeUtente'=>$nomeUtente, 'password'=>$hash, 'admin'=>0, 'id_admin'=>$id]);
     }
     else {
-        echo "<h2>Nome utente già utilizzato</h2>";
+        echo json_encode("Utilizzato");
     }
 }
 else {
-    echo "<h2>Le due password non coincidono, riprovare</h2>";
+    echo json_encode("Errore");
 }
 
